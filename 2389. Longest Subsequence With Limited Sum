@@ -1,0 +1,50 @@
+import java.util.*;
+
+class Solution {
+    public int[] answerQueries(int[] nums, int[] queries) {
+        int m = queries.length;
+        int n = nums.length;
+        int[] res = new int[m];
+        Arrays.sort(nums);
+        int[] pf = new int[n];
+        pf[0]=nums[0];
+        for(int i=1;i<n;i++){
+           pf[i]=nums[i]+pf[i-1];
+        }
+        for(int i=0;i<m;i++){
+            res[i]=bs(pf,queries[i]);
+        }
+        return res;
+    }
+    private static int bs(int[] arr , int num){
+        int low = 0,high=arr.length-1;
+        int ans=0;
+        while(low<=high){
+            int mid = low+(high-low)/2;
+            if(arr[mid]<=num){
+                ans=mid+1;
+                low=mid+1;
+            }else {
+                high=mid-1;
+            }
+        }
+        return ans;
+    }
+ public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        // Example 1
+        int[] nums1 = {4, 5, 2, 1};
+        int[] queries1 = {3, 10, 21};
+        System.out.println("Output 1: " +
+                Arrays.toString(sol.answerQueries(nums1, queries1)));
+        // Expected: [2, 3, 4]
+
+        // Example 2
+        int[] nums2 = {2, 3, 4, 5};
+        int[] queries2 = {1};
+        System.out.println("Output 2: " +
+                Arrays.toString(sol.answerQueries(nums2, queries2)));
+        // Expected: [0]
+    }
+}
