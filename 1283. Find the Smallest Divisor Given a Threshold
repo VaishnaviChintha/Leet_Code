@@ -1,0 +1,52 @@
+import java.util.*;
+
+public class Solution {
+    public int smallestDivisor(int[] nums, int threshold) {
+        int n = nums.length;
+        int max = Integer.MIN_VALUE;
+        for(int i=0;i<n;i++){
+            max = Math.max(max,nums[i]);
+        }
+        int divisor = binarySearch(nums,max,threshold);
+        return divisor;
+    }
+    private static int binarySearch(int[] nums,int max,int threshold){
+         int low = 1;
+         int high = max;
+         int ans=0;
+         while(low<=high){
+            int mid = low + (high-low)/2;
+            int sum=0;
+            for(int i=0;i<nums.length;i++){
+                sum+=(nums[i]+mid-1)/mid;  //ceil division
+            }
+            if(sum<=threshold){
+                ans=mid;
+                high=mid-1;
+            }else {
+                low = mid+1;
+            }
+         }
+         return ans;
+    }
+   public static void main(String[] args) {
+
+        // Example 1
+        int[] nums1 = {1, 2, 5, 9};
+        int threshold1 = 6;
+        System.out.println("Example 1 Output: " +
+                smallestDivisor(nums1, threshold1)); // Expected: 5
+
+        // Example 2
+        int[] nums2 = {44, 22, 33, 11, 1};
+        int threshold2 = 5;
+        System.out.println("Example 2 Output: " +
+                smallestDivisor(nums2, threshold2)); // Expected: 44
+
+        // Extra test
+        int[] nums3 = {2, 3, 5, 7, 11};
+        int threshold3 = 11;
+        System.out.println("Extra Test Output: " +
+                smallestDivisor(nums3, threshold3));
+    }
+}
