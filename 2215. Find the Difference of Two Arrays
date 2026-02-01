@@ -1,0 +1,40 @@
+import java.util.*;
+public class Solution {
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> sub1 = new ArrayList<>();
+        List<Integer> a1 = new ArrayList<>();
+        List<Integer> a2 = new ArrayList<>();
+        for(int x : nums1){
+             a1.add(x);
+        }
+        for(int x:nums2){
+            a2.add(x);
+        }
+        for(int x : nums1){
+            if(!a2.contains(x) && !sub1.contains(x)){
+                sub1.add(x);
+            }
+        }
+        res.add(sub1);
+        List<Integer> sub2 = new ArrayList<>();
+        for(int x : nums2){
+            if(!a1.contains(x) && !sub2.contains(x)){
+                sub2.add(x);
+            }
+        }
+        res.add(sub2);
+        return res;
+
+    }
+ public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        int[] nums1 = {1, 2, 3};
+        int[] nums2 = {2, 4, 6};
+
+        List<List<Integer>> result = sol.findDifference(nums1, nums2);
+
+        System.out.println(result);  // Output: [[1, 3], [4, 6]]
+    }
+}
