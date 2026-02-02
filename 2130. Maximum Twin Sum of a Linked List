@@ -1,0 +1,55 @@
+import java.util.*;
+public class Solution {
+ static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int val) {
+            this.val = val;
+            this.next = null;
+        }
+    }
+    public int pairSum(ListNode head) {
+        // first here i'm finding the middle node using fast and slow pointers
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast!=null && fast.next!=null){
+            slow = slow.next;
+            fast=fast.next.next;
+        }
+        // now slow is at the middle
+        // here now i'm reversing the second half of the List
+        ListNode prev = null;
+        ListNode curr = slow;
+        ListNode nxt = slow;
+        while(nxt!=null){
+            nxt=nxt.next;
+            curr.next =prev;
+            prev = curr;
+            curr= nxt;
+        }
+        // using two pointers i'm calculating pair sum and updating maxSum
+        int maxSum = 0;
+        ListNode first=head;
+        ListNode last=prev;
+        while(last!=null){
+            maxSum=Math.max(maxSum,first.val+last.val);
+            first=first.next;
+            last=last.next;
+        }
+
+      return maxSum;
+    }
+public static void main(String[] args) {
+        // Create linked list: 1 → 2 → 3 → 4 → 5 → 6
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(4);
+        head.next.next.next.next = new ListNode(5);
+        head.next.next.next.next.next = new ListNode(6);
+
+        int result = pairSum(head);
+        System.out.println("Maximum Twin Sum: " + result);
+    }
+}
