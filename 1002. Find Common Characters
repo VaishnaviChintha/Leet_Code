@@ -1,0 +1,35 @@
+
+import java.util.*;
+public class Solution {
+    public List<String> commonChars(String[] words) {
+       String first = words[0];
+       List<String> res = new ArrayList<>();
+
+    for (char ch : first.toCharArray()) {
+        boolean found = true;
+
+         for (int i = 1; i < words.length; i++) {
+            int idx = words[i].indexOf(ch);
+            if (idx == -1) {
+                found = false;
+                break;
+            }
+            // consume the character
+            words[i] = words[i].substring(0, idx) + "/" + words[i].substring(idx + 1);
+        }
+
+        if (found) {
+            res.add(String.valueOf(ch));
+        }
+    }
+     return res;
+    }
+ public static void main(String[] args) {
+        String[] words = {"bella", "label", "roller"};
+
+        List<String> result = commonChars(words);
+
+        System.out.println(result);
+    }
+   
+}
