@@ -1,0 +1,43 @@
+import java.util.*;
+public class Solution {
+    public String reverseWords(String s) {
+         String[] words = s.split(" ");
+         int vowelCount = countVowels(words[0]);
+         StringBuilder sb = new StringBuilder();
+         sb.append(words[0]);
+         for(int i=1;i<words.length;i++){
+            sb.append(" ");
+            String word = words[i];
+            int count = countVowels(word);
+            if(count==vowelCount){
+                StringBuilder ss = new StringBuilder();
+                ss.append(word);
+                sb.append(ss.reverse().toString());
+            }else{
+                sb.append(word);
+            }
+         }
+         return sb.toString();
+    }
+    private static int countVowels(String s){
+        int count=0;
+        for(char ch : s.toCharArray()){
+            if(ch=='a'||ch=='e'||ch=='i'||ch=='o'||ch=='u'){
+                count++;
+            }
+        }
+        return count;
+    }
+public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        String s1 = "cat and mice";
+        String s2 = "book is nice";
+        String s3 = "banana healthy";
+
+        System.out.println(sol.reverseWords(s1)); // cat dna mice
+        System.out.println(sol.reverseWords(s2)); // book is ecin
+        System.out.println(sol.reverseWords(s3)); // banana healthy
+    }
+
+}
