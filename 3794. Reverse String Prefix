@@ -1,0 +1,28 @@
+import java.util.*;
+public class Solution {
+    public String reversePrefix(String s, int k) {
+        StringBuilder sb = new StringBuilder();
+        for(int i=k-1;i>=0;i--){
+            sb.append(s.charAt(i));
+        }
+        for(int i=k;i<s.length();i++){
+            sb.append(s.charAt(i));
+        }
+        return sb.toString();
+    }
+public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        // Example inputs
+        String s = "abcdefd";
+        int k = 3;
+
+        // Call the method
+        String result = sol.reversePrefix(s, k);
+
+        // Output
+        System.out.println("Original String: " + s);
+        System.out.println("k = " + k);
+        System.out.println("Result: " + result);
+    }
+}
