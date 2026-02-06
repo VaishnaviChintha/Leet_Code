@@ -1,0 +1,43 @@
+import java.util.*;
+public class Solution {
+    public int garbageCollection(String[] garbage, int[] travel) {
+        int paper=0;
+        int metal=0;
+        int glass=0;
+        int[] prefix = new int[garbage.length+1];
+        for(int i = 1; i < garbage.length; i++){
+           prefix[i] = prefix[i - 1] + travel[i - 1];
+        }
+
+        int last_p= 0;
+        int last_m=0;
+        int last_g=0;
+        int total_garbage=0;
+        for(int i=0;i<garbage.length;i++){
+            String s = garbage[i];
+            total_garbage+=s.length();
+            if(s.indexOf("P")!=-1){
+                  last_p=i;
+            }
+            if(s.indexOf("M")!=-1){
+                last_m = i;
+            }
+            if(s.indexOf("G")!=-1){
+                 last_g = i;
+            }
+        }
+        int total_time=total_garbage+prefix[last_p]+prefix[last_m]+prefix[last_g];
+        return total_time;
+
+    }
+public static void main(String[] args) {
+
+        Solution sol = new Solution();
+
+        String[] garbage = {"G", "P", "GP", "GG"};
+        int[] travel = {2, 4, 3};
+
+        int result = sol.garbageCollection(garbage, travel);
+        System.out.println("Total time required: " + result);
+    }
+}
