@@ -1,0 +1,21 @@
+import java.util.*;
+public class Solution {
+    public int countKDifference(int[] nums, int k) {
+        int count=0;
+        for(int i=0;i<nums.length;i++){
+            for(int j=0;j<nums.length;j++){
+                if(i<j && Math.abs(nums[i]-nums[j])==k ){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        int[] nums1 = {1, 2, 2, 1};
+        int k1 = 1;
+        System.out.println(sol.countKDifference(nums1, k1)); 
+    }
+}
