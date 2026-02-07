@@ -1,0 +1,35 @@
+import java.util.*;
+public class Solution {
+    public int countCharacters(String[] words, String chars) {
+        Map<Character,Integer> f1 = new HashMap<>();
+        for(char ch : chars.toCharArray()){
+            f1.put(ch,f1.getOrDefault(ch,0)+1);
+        }
+        int count=0;
+        for(int i=0;i<words.length;i++){
+            String word = words[i];
+            Map<Character,Integer> f2 = new HashMap<>();
+            for(char ch : word.toCharArray()){
+                f2.put(ch,f2.getOrDefault(ch,0)+1);
+            }
+            boolean flag = true;
+            for(Map.Entry<Character,Integer> entry : f2.entrySet()){
+                char k = entry.getKey();
+                if (!f1.containsKey(k) || entry.getValue() > f1.get(k)) {
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag){
+                count+=word.length();
+            }
+        }
+        return count;
+    }
+public static void main(String[] args) {
+        Solution sol = new Solution();
+        String[] words = {"cat", "bt", "hat", "tree"};
+        String chars = "atach";
+        System.out.println(sol.countCharacters(words, chars));
+    }
+}
