@@ -1,0 +1,27 @@
+import java.util.*;
+public class Solution {
+    public int countKConstraintSubstrings(String s, int k) {
+      int left = 0;
+        int zeros = 0, ones = 0;
+        int count = 0;
+        for (int right = 0; right < s.length(); right++) {
+            if (s.charAt(right) == '0') zeros++;
+            else ones++;
+            while (zeros > k && ones > k) {
+                if (s.charAt(left) == '0') zeros--;
+                else ones--;
+                left++;
+            }
+            count += right - left + 1;
+        }
+
+        return count;
+    }
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        String s1 = "10101";
+        int k1 = 1;
+        System.out.println(sol.countKConstraintSubstrings(s1, k1));
+    }
+
+}
