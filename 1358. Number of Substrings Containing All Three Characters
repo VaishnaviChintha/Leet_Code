@@ -1,0 +1,25 @@
+import java.util.*;
+public class Solution {
+    public int numberOfSubstrings(String s) {
+        int left=0;
+        int count=0;
+        int a_count=0,b_count=0,c_count=0;
+        for(int right=0;right<s.length();right++){
+            if(s.charAt(right)=='a') a_count++;
+            if(s.charAt(right)=='b') b_count++;
+            if(s.charAt(right)=='c') c_count++;
+            while(a_count>=1 && b_count>=1 && c_count>=1){
+                count+=s.length()-right;
+                if(s.charAt(left)=='a') a_count--;
+                if(s.charAt(left)=='b') b_count--;
+                if(s.charAt(left)=='c') c_count--;
+                left++;
+            }
+        }
+        return count;
+    }
+ public static void main(String[] args) {
+        String s1 = "abcabc";
+        System.out.println(numberOfSubstrings(s1)); 
+    }
+}
