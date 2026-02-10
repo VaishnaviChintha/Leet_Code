@@ -1,0 +1,33 @@
+import java.util.*;
+public class Solution {
+    public int minOperations(int[] nums) {
+        int count=0;
+        for(int i=0;i<=nums.length-3;i++){
+             if(nums[i]==0){
+                int limit=i+3;
+                int j=i;
+                while(j<limit){
+                    if(nums[j]==0){
+                        nums[j]=1;
+                    }else{
+                        nums[j]=0;
+                    }
+                    j++;
+                }
+                count++;
+             }
+
+        }
+        if(nums[nums.length-2]==0 || nums[nums.length-1]==0) return -1;
+        return count;
+    }
+public static void main(String[] args) {
+        Solution sol = new Solution();
+        int[] nums1 = {0, 1, 1, 1, 0, 0};
+        System.out.println("Input: " + Arrays.toString(nums1));
+        System.out.println("Output: " + sol.minOperations(nums1)); 
+        int[] nums2 = {0, 1, 1, 1};
+        System.out.println("Input: " + Arrays.toString(nums2));
+        System.out.println("Output: " + sol.minOperations(nums2)); 
+    }
+}
