@@ -1,0 +1,30 @@
+import java.util.*;
+public class Solution {
+    public boolean areOccurrencesEqual(String s) {
+        Map<Character,Integer> freq = new HashMap<>();
+        for(char ch : s.toCharArray()){
+            freq.put(ch,freq.getOrDefault(ch,0)+1);
+        }
+         int val = 0;
+         char ch = ' ';
+         for (Map.Entry<Character, Integer> e : freq.entrySet()) {
+              val = e.getValue();
+              ch = e.getKey();
+              break;
+            }
+        for(Map.Entry<Character,Integer> e : freq.entrySet()){
+            if(e.getKey()==ch){
+                continue;
+            }
+            if(e.getValue()!=val){
+                return false;
+            }
+        }
+         return true;
+    }
+public static void main(String[] args) {
+        Solution sol = new Solution();
+        String s1 = "abacbc"; 
+        System.out.println(sol.areOccurrencesEqual(s1)); 
+    }
+}
