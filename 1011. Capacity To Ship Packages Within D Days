@@ -1,0 +1,43 @@
+import java.util.*;
+public class Solution {
+    public int shipWithinDays(int[] weights, int days) {
+        int total_sum=0;
+        int max =0;
+        for(int wt : weights){
+            total_sum+=wt;
+            max=Math.max(max,wt);
+        }
+        int min=0;
+        int l=max,h=total_sum;
+        while(l<=h){
+            int mid = (l+h)/2;
+            if(isPossible(weights,mid,days)){
+                min=mid;
+                h=mid-1;
+            }else{
+                l=mid+1;
+            }
+        }
+        return min;
+    }
+    private static boolean isPossible(int[] weights,int capacity,int days){
+        int count=1;
+        int i=0;
+        int sum=0;
+        for(int wt : weights){
+            if(sum+wt>capacity){
+                sum=wt;
+                count++;
+            }else{
+                sum+=wt;
+            }
+        }
+        return count<=days;
+    }
+ public static void main(String[] args) {
+        Solution sol = new Solution();
+        int[] weights1 = {1,2,3,4,5,6,7,8,9,10};
+        int days1 = 5;
+        System.out.println(sol.shipWithinDays(weights1, days1)); 
+    }
+}
