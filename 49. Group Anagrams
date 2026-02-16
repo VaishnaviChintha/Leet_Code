@@ -1,0 +1,23 @@
+import java.util.*;
+public class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String,List<String>> map = new HashMap<>();
+        for(String word : strs){
+            char[] str = word.toCharArray();
+            Arrays.sort(str);
+            String s = new String(str);
+            if(!map.containsKey(s)){
+                map.put(s,new ArrayList<>());
+            }
+            map.get(s).add(word);
+        }
+        return new ArrayList<>(map.values());
+    }
+
+    public static void main(String[] args) {
+        String[] strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
+        Solution sol = new Solution();
+        List<List<String>> result = sol.groupAnagrams(strs);
+        System.out.println(result);
+    }
+}
