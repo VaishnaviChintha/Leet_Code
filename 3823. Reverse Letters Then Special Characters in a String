@@ -1,0 +1,47 @@
+import java.util.*;
+public class Solution {
+    public String reverseByType(String s) {
+        char[] arr = s.toCharArray();
+        int l=0,h=arr.length-1;
+        while(l<h){
+            while( l<h && !Character.isLetter(arr[l])){
+                l++;
+            }
+            while(l<h && !Character.isLetter(arr[h])){
+                h--;
+            }
+            if(l<h){
+                char temp = arr[l];
+                arr[l]=arr[h];
+                arr[h]=temp;
+                l++;
+                h--;
+            }
+        }
+        l=0;
+        h=arr.length-1;
+        while(l<h){
+            while( l<h && Character.isLetter(arr[l])){
+                l++;
+            }
+            while(l<h && Character.isLetter(arr[h])){
+                h--;
+            }
+            if(l<h){
+                char temp = arr[l];
+                arr[l]=arr[h];
+                arr[h]=temp;
+                l++;
+                h--;
+            }
+        }
+        return new String(arr);
+    }
+public static void main(String[] args) {
+        Solution sol = new Solution();
+        String s = "a-bC-dEf-ghIj";
+        String result = sol.reverseByType(s);
+        System.out.println(s);
+        System.out.println(result);
+    }
+}
