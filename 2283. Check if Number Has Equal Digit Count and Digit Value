@@ -1,0 +1,22 @@
+import java.util.*;
+public class Solution {
+    public boolean digitCount(String num) {
+        int[] digit = new int[10];
+        for(char ch : num.toCharArray()){
+            digit[ch-'0']++;
+        }
+        for(int i=0;i<num.length();i++){
+            if(num.charAt(i)-'0'!=digit[i]){
+                 return false;
+            }
+        }
+        return true;
+    }
+public static void main(String[] args) {
+        Solution sol = new Solution();
+        String s1 = "1210";
+        System.out.println(sol.digitCount(s1)); 
+        String s2 = "030";
+        System.out.println(sol.digitCount(s2)); 
+    }
+}
