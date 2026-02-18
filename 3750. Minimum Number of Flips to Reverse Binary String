@@ -1,0 +1,28 @@
+import java.util.*;
+public class Solution {
+    public int minimumFlips(int n) {
+        String num = binaryTo(n);
+        String original = new StringBuilder(num).reverse().toString();
+        int ans =0;
+        for(int i=0;i<num.length();i++){
+            if(num.charAt(i)!=original.charAt(i)){
+                ans++;
+            }
+        }
+        return ans;
+    }
+    private static String binaryTo(int n){
+        StringBuilder sb = new StringBuilder();
+        while(n>0){
+            int rem = n%2;
+            sb.append(rem);
+            n=n/2;
+        }
+        return sb.toString();
+    }
+public static void main(String[] args) {
+        Solution sol = new Solution();
+        int n = 13;
+        System.out.println("Minimum flips: " + sol.minimumFlips(n));
+    }
+}
