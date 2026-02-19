@@ -1,0 +1,26 @@
+import java.util.*;
+public class Solution {
+    public String interpret(String command) {
+        Deque<Character> s = new ArrayDeque<>();
+        StringBuilder sb = new StringBuilder();
+        for(int i=0;i<command.length();i++){
+            if(Character.isLetter(command.charAt(i))){
+                sb.append(command.charAt(i));
+            }else{
+                if(command.charAt(i)=='(' && command.charAt(i+1)==')'){
+                    sb.append('o');
+                }
+            }
+        }
+        return sb.toString();
+    }
+public static void main(String[] args) {
+        Solution sol = new Solution();
+        String command1 = "G()(al)";
+        System.out.println(sol.interpret(command1));
+        String command2 = "G()()()()(al)";
+        System.out.println(sol.interpret(command2));
+        String command3 = "(al)G(al)()()G";
+        System.out.println(sol.interpret(command3));
+    }
+}
