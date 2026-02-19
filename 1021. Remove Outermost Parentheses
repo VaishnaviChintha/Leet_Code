@@ -1,0 +1,33 @@
+import java.util.*;
+public class Solution {
+    public String removeOuterParentheses(String s) {
+        int left=0,right=0;
+        int open=0,close=0;
+        StringBuilder sb = new StringBuilder();
+        while(right<s.length()){
+           if(s.charAt(right)=='('){
+            open++;
+           }else{
+            close++;
+           }
+           if(open==close){
+               String sub = s.substring(left+1,right);
+               sb.append(sub);
+               open=0;
+               close=0;
+               left=right+1;
+           }
+           right++;
+        }
+        return sb.toString();
+    }
+public static void main(String[] args) {
+        Solution sol = new Solution();
+        String s1 = "(()())(())";
+        System.out.println(sol.removeOuterParentheses(s1));
+        String s2 = "(()())(())(()(()))";
+        System.out.println(sol.removeOuterParentheses(s2));
+        String s3 = "()()";
+        System.out.println(sol.removeOuterParentheses(s3));
+    }
+}
