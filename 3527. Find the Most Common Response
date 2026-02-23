@@ -1,0 +1,25 @@
+import java.util.*;
+public class Solution {
+    public String findCommonResponse(List<List<String>> responses) {
+        Map<String,Integer> freq = new HashMap<>();
+        for (List<String> day : responses) {
+            Set<String> unique = new HashSet<>(day); // removes duplicates
+            for (String word : unique) {
+              freq.put(word, freq.getOrDefault(word, 0) + 1);
+             }
+        }
+        String ans=null;
+        int maxFreq=0;
+        for(Map.Entry<String,Integer> entry : freq.entrySet()){
+              String key = entry.getKey();
+              int value = entry.getValue();
+
+              if (value > maxFreq || 
+                 (value == maxFreq && key.compareTo(ans) < 0)) {
+                   ans = key;
+                   maxFreq = value;
+                }
+        }
+        return ans;
+    }
+}
