@@ -1,0 +1,45 @@
+class Node {
+    public int val;
+    public List<Node> children;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, List<Node> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+class Solution {
+    public List<Integer> preorder(Node root) {
+        List<Integer> res = new ArrayList<>();
+        dfs(root,res);
+        return res;
+    }
+    private void dfs(Node root, List<Integer> res) {
+        if (root==null) return;
+        res.add(root.val); 
+        for (Node child : root.children) { 
+            dfs(child, res);
+        }
+    }
+public static void main(String[] args) {
+        Node node5 = new Node(5);
+        Node node6 = new Node(6);
+
+        Node node3 = new Node(3, Arrays.asList(node5, node6));
+        Node node2 = new Node(2);
+        Node node4 = new Node(4);
+
+        Node root = new Node(1, Arrays.asList(node3, node2, node4));
+
+        Solution sol = new Solution();
+        List<Integer> result = sol.preorder(root);
+
+        System.out.println("Preorder Traversal: " + result);
+    }
+    
+}
