@@ -1,0 +1,25 @@
+import java.util.*;
+class Solution {
+    public int numberOfBeams(String[] bank) {
+        int prev = 0;
+        int ans = 0;
+        for (String r : bank) {
+            int cur= 0;
+            for (char ch : r.toCharArray()) {
+                if (ch == '1') cur++;
+            }
+            if (cur > 0) {
+                ans += prev * cur;
+                prev = cur;
+            }
+        }
+        return ans;
+    }
+public static void main(String[] args) {
+        Solution sol = new Solution();
+        String[] bank1 = {"011001", "000000", "010100", "001000"};
+        System.out.println(sol.numberOfBeams(bank1)); // Expected: 8
+        String[] bank2 = {"000", "111", "000"};
+        System.out.println(sol.numberOfBeams(bank2)); // Expected: 0
+    }
+}
