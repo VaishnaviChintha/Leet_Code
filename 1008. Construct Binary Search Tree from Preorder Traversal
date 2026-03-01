@@ -1,0 +1,57 @@
+import java.util.*;
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode() {}
+
+    TreeNode(int val) {
+        this.val = val;
+    }
+
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+class Solution {
+
+    // Build BST from preorder traversal
+    public TreeNode bstFromPreorder(int[] preorder) {
+        TreeNode root = null;
+        for (int num : preorder) {
+            root = insertRec(root, num);
+        }
+        return root;
+    }
+
+    private TreeNode insertRec(TreeNode node, int val) {
+        if (node == null) return new TreeNode(val);
+
+        if (val < node.val) {
+            node.left = insertRec(node.left, val);
+        } else {
+            node.right = insertRec(node.right, val);
+        }
+        return node;
+    }
+
+    public void inorder(TreeNode root) {
+        if (root == null) return;
+        inorder(root.left);
+        System.out.print(root.val + " ");
+        inorder(root.right);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        int[] preorder = {8, 5, 1, 7, 10, 12};
+        Solution sol = new Solution();
+        TreeNode root = sol.bstFromPreorder(preorder);
+
+        System.out.print("Inorder traversal of BST: ");
+        sol.inorder(root);
+    }
+}
