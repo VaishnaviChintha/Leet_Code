@@ -1,0 +1,26 @@
+import java.util.*;
+class Solution {
+    public int minAddToMakeValid(String s) {
+        Deque<Character> stack = new ArrayDeque<>();
+        for(char ch : s.toCharArray()){
+            if(stack.isEmpty() && ch=='('){
+                stack.push(ch);
+            }else if(!stack.isEmpty() && (stack.peek()=='(' && ch==')')){
+                stack.pop();
+            }else{
+            stack.push(ch);
+            }
+        }
+        return stack.size();
+    }
+}
+}
+public class Main {
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        String s1 = "())(";
+        String s2 = "((())";
+        System.out.println("Unmatched parentheses in \"" + s1 + "\": " + sol.minAddToMakeValid(s1));
+        System.out.println("Unmatched parentheses in \"" + s2 + "\": " + sol.minAddToMakeValid(s2));
+    }
+}
