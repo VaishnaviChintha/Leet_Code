@@ -1,0 +1,53 @@
+import java.util.*;
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int val) {
+        this.val = val;
+    }
+}
+class Solution {
+    public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
+        TreeNode temp = null;
+        Queue<TreeNode>q = new ArrayDeque<>();
+        q.offer(cloned);
+        while(!q.isEmpty()){
+            TreeNode node = q.poll();
+            if(node.val==target.val){
+                return node;
+            }
+            if(node.left!=null) q.offer(node.left);
+            if(node.right!=null) q.offer(node.right);   
+        }
+        return null;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        // Original Tree
+        TreeNode original = new TreeNode(7);
+        original.left = new TreeNode(4);
+        original.right = new TreeNode(3);
+        original.right.left = new TreeNode(6);
+        original.right.right = new TreeNode(19);
+        // Cloned Tree
+        TreeNode cloned = new TreeNode(7);
+        cloned.left = new TreeNode(4);
+        cloned.right = new TreeNode(3);
+        cloned.right.left = new TreeNode(6);
+        cloned.right.right = new TreeNode(19);
+
+        // Target node in original tree
+        TreeNode target = original.right; // value = 3
+        Solution sol = new Solution();
+        TreeNode result = sol.getTargetCopy(original, cloned, target);
+        if (result != null) {
+            System.out.println("Target found in cloned tree: " + result.val);
+        } else {
+            System.out.println("Target not found");
+        }
+    }
+}
