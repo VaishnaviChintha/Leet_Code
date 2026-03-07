@@ -1,0 +1,33 @@
+import java.util.*;
+class Solution {
+    public int[] findThePrefixCommonArray(int[] A, int[] B) {
+        int[] res = new int[A.length];
+        int[] freq = new int[A.length+1];
+        int count=0;
+        for(int i=0;i<A.length;i++){
+            freq[A[i]]++;
+            if(freq[A[i]]==2){
+                count++;
+            }
+            freq[B[i]]++;
+            if(freq[B[i]]==2){
+                count++;
+            }
+            res[i]=count;
+        }
+        return res;
+    }
+public static void main(String[] args) {
+        Solution obj = new Solution();
+
+        int[] A = {1, 3, 2, 4};
+        int[] B = {3, 1, 2, 4};
+
+        int[] result = obj.findThePrefixCommonArray(A, B);
+
+        System.out.println("Prefix Common Array:");
+        for (int i = 0; i < result.length; i++) {
+            System.out.print(result[i] + " ");
+        }
+    }
+}
