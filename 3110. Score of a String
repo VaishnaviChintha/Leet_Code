@@ -1,0 +1,24 @@
+import java.util.*;
+class Solution {
+    public int scoreOfString(String s) {
+        int res =0;
+        for(int i=0;i<s.length()-1;i++){
+            int val = Math.abs(s.charAt(i)-s.charAt(i+1));
+            res+=val;
+        }
+        return res;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // input string
+        String s = sc.nextLine();
+
+        Solution obj = new Solution();
+        int result = obj.scoreOfString(s);
+
+        System.out.println(result);
+    }
+}
