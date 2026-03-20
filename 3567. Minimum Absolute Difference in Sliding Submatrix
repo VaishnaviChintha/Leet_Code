@@ -1,0 +1,49 @@
+import java.util.*;
+class Solution {
+    public int[][] minAbsDiff(int[][] grid, int k) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][] res = new int[m-k+1][n-k+1];
+        for(int i=0;i<(m-k+1);i++){
+            for(int j=0;j<(n-k+1);j++){
+                int min_diff = solve(grid,k,i,j);
+                res[i][j]=min_diff;
+            }
+        }  
+        return res; 
+    }
+    private static int solve(int[][] grid,int k,int i,int j){
+       int diff = Integer.MAX_VALUE;
+       Set<Integer> set = new HashSet<>();
+       for(int x=i;x<(i+k);x++){
+        for(int y=j;y<(j+k);y++){
+            if(!set.contains(grid[x][y])){
+                set.add(grid[x][y]);
+            }
+        }
+       }
+       List<Integer> list = new ArrayList<>(set);
+       for(int c1=0;c1<list.size();c1++){
+        for(int c2=c1+1;c2<list.size();c2++){
+            if(c1!=c2){
+               int val = Math.abs(list.get(c1)-list.get(c2));
+               diff=Math.min(diff,val);
+            }
+        }
+       }
+       return (diff==Integer.MAX_VALUE)?0:diff;
+    }
+}
+class Main{
+public static void main(String[] args){
+    int[][] grid={{1,8},{3,-2}};
+    int k = 2;
+    Solution sol = new Solution();
+    int[][] res = sol.minAbsDiff(grid,k);
+    for(int i=0;i<res.length;i++){
+     for(int j=0;j<res[0].length;j++){
+         System.out.print(res[i][j]+" ");
+}
+System.out.println();
+}
+}
