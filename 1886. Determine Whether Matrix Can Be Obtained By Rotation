@@ -1,0 +1,62 @@
+import java.util.*;
+class Solution {
+    public boolean findRotation(int[][] mat, int[][] target) {
+        boolean flag = check(mat,target);
+        if(flag){
+            return flag;
+        }
+        for(int r=0;r<3;r++){
+        for(int i=0;i<mat.length;i++){
+           for(int j=i;j<mat[0].length;j++){
+                int temp = mat[i][j];
+                mat[i][j]=mat[j][i];
+                mat[j][i]=temp;
+           }
+        }
+         for(int i = 0; i < mat[0].length; i++){
+            int left = 0, right = mat[0].length - 1;
+            while(left < right){
+                int temp = mat[i][left];
+                mat[i][left] = mat[i][right];
+                mat[i][right] = temp;
+                left++;
+                right--;
+            }
+        }
+        flag = check(mat,target);
+        if(flag) break;
+        }
+        return flag;
+    }
+    private static boolean check(int[][] mat,int[][] target){
+        boolean flag = true;
+        for(int i=0;i<mat.length;i++){
+            for(int j=0;j<mat[0].length;j++){
+                if(mat[i][j]!=target[i][j]){
+                    flag=false;
+                    return flag;
+                }
+            }  
+        }
+        return flag;
+    }
+public static void main(String[] args) {
+    int[][] mat = {
+        {1, 2},
+        {3, 4}
+    };
+
+    int[][] target = {
+        {3, 1},
+        {4, 2}
+    };
+
+    Solution sol = new Solution();
+    boolean result = sol.findRotation(mat, target);
+
+    if(result) {
+        System.out.println("Yes, mat can be rotated to match target.");
+    } else {
+        System.out.println("No, mat cannot match target by rotation.");
+    }
+}
