@@ -1,0 +1,25 @@
+import java.util.*;
+class Solution {
+    public int firstMatchingIndex(String s) {
+        int l=0;
+        int h=s.length()-1;
+        while(l<=h){
+            if(s.charAt(l)==s.charAt(h)){
+                return l;
+            }
+            l++;
+            h--;
+        }
+        return -1;
+    }
+public static void main(String[] args) {
+        String s = "abca";
+        Solution sol = new Solution();
+        boolean found = sol.firstMatchingIndex(s);
+        if (found) {
+            System.out.println("First matching character from both ends: " + result);
+        } else {
+            System.out.println("No matching character found");
+        }
+    }
+}
