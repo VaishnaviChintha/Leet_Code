@@ -1,0 +1,44 @@
+import java.util.*;
+class Solution {
+    public double[] internalAngles(int[] sides) {
+        double[] res = new double[sides.length];
+        boolean flag = checkTriangle(sides);
+        if(!flag) return new double[0];
+        for(int i=0;i<3;i++){
+            double a = sides[i];
+            double b = sides[(i+1)%3];
+            double c = sides[(i+2)%3];
+            double val = (b*b + c*c - a*a)/(2*b*c);
+            val = Math.max(-1.0, Math.min(1.0, val));
+            res[i]=Math.toDegrees(Math.acos(val));
+        }
+        Arrays.sort(res);
+        return res;
+        
+    }
+    private static boolean checkTriangle(int[] s){
+       return (s[0] + s[1] > s[2]) &&
+           (s[1] + s[2] > s[0]) &&
+           (s[0] + s[2] > s[1]);
+    }
+ public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input 3 sides
+        int[] sides = new int[3];
+        for(int i = 0; i < 3; i++){
+            sides[i] = sc.nextInt();
+        }
+
+        Solution obj = new Solution();
+        double[] result = obj.internalAngles(sides);
+
+        if(result.length == 0){
+            System.out.println("Invalid Triangle");
+        } else {
+            for(double angle : result){
+                System.out.printf("%.5f ", angle);
+            }
+        }
+    }
+}
