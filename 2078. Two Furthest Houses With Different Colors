@@ -1,0 +1,20 @@
+import java.util.*;
+class Solution {
+    public int maxDistance(int[] colors) {
+        int max_dist=Integer.MIN_VALUE;   
+        for(int i=0;i<colors.length;i++){
+            for(int j=0;j<colors.length;j++){
+                if(colors[i]!=colors[j]){
+                max_dist = Math.max(max_dist,j-i);
+                }
+            }
+        }
+        return max_dist;
+    }
+public static void main(String[] args){
+   Solution sol = new Solution();
+   int colors[] = {1,1,1,6,1,1,1};
+   int max_dist = sol.maxDistance(colors);
+   System.out.println(max_dist);
+}
+}
