@@ -1,0 +1,59 @@
+import java.util.*;
+class Solution {
+    int[] parent;
+    public String smallestStringWithSwaps(String s, List<List<Integer>> pairs) {
+        int n = s.length();
+        parent = new int[n];
+        for(int i=0;i<n;i++){
+            parent[i]=i;
+        }
+        // union
+        for(List<Integer> swap : pairs){
+            union(swap.get(0),swap.get(1));
+        }
+        // group
+        Map<Integer,List<Character>> groups = new HashMap<>();
+        for(int i=0;i<n;i++){
+            int root = find(i);
+            groups.computeIfAbsent(root,k->new ArrayList<>()).add(s.charAt(i));
+        }
+        // sorting
+        for(List<Character> group : groups.values()){
+            Collections.sort(group);
+        }
+        StringBuilder sb = new StringBuilder();
+        for(int i=0;i<n;i++){
+            int root = find(i);
+            List<Character> group = groups.get(root);
+            sb.append(group.get(0));
+            group.remove(0);
+        }
+        return sb.toString();
+    }
+    private int find(int x){
+        if(parent[x]!=x){
+            parent[x]=find(parent[x]);
+        }
+        return parent[x];
+    }
+    private void union(int a,int b){
+        int pa=find(a);
+        int pb = find(b);
+        if(pa!=pb){
+            parent[pa]=pb;
+        }
+    }
+ public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        String s = "dcab";
+
+        List<List<Integer>> pairs = new ArrayList<>();
+        pairs.add(Arrays.asList(0, 3));
+        pairs.add(Arrays.asList(1, 2));
+
+        String result = sol.smallestStringWithSwaps(s, pairs);
+
+        System.out.println("Result: " + result);
+    }
+}
