@@ -1,0 +1,36 @@
+import java.util.*;
+class Solution {
+    public List<String> twoEditWords(String[] queries, String[] dictionary) {
+        List<String> res = new ArrayList<>();
+        for(String q : queries){
+            int miss = findMiss(dictionary,q);
+            if(miss<=2){
+                res.add(q);
+            }
+        }
+        return res;
+    }
+    private int findMiss(String[] dictionary,String word){
+        int miss = Integer.MAX_VALUE;
+        for(String str : dictionary){
+            int count=0;
+            for(int i=0;i<word.length();i++){
+                if(str.charAt(i)!=word.charAt(i)){
+                    count++;
+                }
+            }
+            miss = Math.min(miss,count);
+        }
+        return miss;
+    }
+public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        String[] queries = {"word","note","ants","wood"};
+        String[] dictionary = {"wood","joke","moat"};
+
+        List<String> result = sol.twoEditWords(queries, dictionary);
+
+        System.out.println(result);
+    }
+}
