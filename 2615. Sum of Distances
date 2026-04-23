@@ -1,0 +1,52 @@
+import java.util.*;
+class Solution {
+    public long[] distance(int[] nums) {
+        int n = nums.length;
+        long[] res = new long[n];
+        Map<Integer,List<Integer> > map = new HashMap<>();
+        for(int i=0;i<n;i++){
+            map.computeIfAbsent(nums[i],k-> new ArrayList<>()).add(i);
+        }
+        for(List<Integer> idx : map.values()){
+            int size=idx.size();
+            // Prefix sum array
+            long[] prefix = new long[size];
+            prefix[0] = idx.get(0);
+            for (int i = 1; i < size; i++) {
+                prefix[i] = prefix[i - 1] + idx.get(i);
+            }
+
+            // Step 3: Compute result for each index
+            for (int j = 0; j < size; j++) {
+                int currentIndex = idx.get(j);
+
+                // LEFT contribution
+                long left = 0;
+                if (j > 0) {
+                    left = (long) j * currentIndex - prefix[j - 1];
+                }
+
+                // RIGHT contribution
+                long right = 0;
+                if (j < size - 1) {
+                    right = (prefix[size - 1] - prefix[j]) 
+                            - (long) (size - j - 1) * currentIndex;
+                }
+
+                res[currentIndex] = left + right;
+            }
+        }
+
+        return res;
+    }
+ public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        int[] nums = {1, 3, 1, 1, 2};
+
+        long[] result = sol.distance(nums);
+
+        System.out.println("Output:");
+        System.out.println(Arrays.toString(result));
+    }
+}
