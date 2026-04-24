@@ -1,0 +1,32 @@
+import java.util.*;
+class Solution {
+    public int furthestDistanceFromOrigin(String moves) {
+       int leftCount=0;
+       int rightCount=0;
+       int spaceCount=0;
+       for(char ch : moves.toCharArray()){
+        if(ch=='L') leftCount++;
+        if(ch=='R') rightCount++;
+        if(ch=='_') spaceCount++;
+       }  
+       char max = (leftCount>=rightCount)?'L':'R';
+       int dist =0;
+       for(char ch : moves.toCharArray()){
+            if(ch=='L') dist-=1;
+            if(ch=='R') dist+=1;
+            if(ch=='_'){
+                if(max=='L') dist-=1;
+                else dist+=1;
+            }
+       }
+      return Math.abs(dist);
+    }
+public static void main(String[] args) {
+        Solution sol = new Solution();
+        
+        String moves = "L_RL__R";  // test input
+        int result = sol.furthestDistanceFromOrigin(moves);
+        
+        System.out.println("Furthest Distance: " + result);
+    }
+}
