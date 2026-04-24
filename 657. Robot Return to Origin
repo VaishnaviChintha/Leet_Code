@@ -1,0 +1,22 @@
+import java.util.*;
+class Solution {
+    public boolean judgeCircle(String moves) {
+        int i=0;
+        int j=0;
+        for(char ch : moves.toCharArray()){
+            if(ch=='L') j--;
+            if(ch=='R') j++;
+            if(ch=='U') i--;
+            if(ch=='D') i++;
+        }
+        return ((i==0)&&(j==0));
+    }
+public static void main(String[] args) {
+        Solution sol = new Solution();
+        
+        String moves = "UDLR";  // test input
+        boolean result = sol.judgeCircle(moves);
+        
+        System.out.println("Returns to Origin: " + result);
+    }
+}
