@@ -1,0 +1,29 @@
+import java.util.*;
+class Solution {
+    public int findMin(int[] nums) {
+        int l=0,h=nums.length-1;
+        while(l<h){
+            int m = (l+h)/2;
+            if(nums[m]>nums[h]){
+                l=m+1;
+            }else if(nums[m]==nums[h]){
+                h--;
+            }else{
+                h=m;
+            }
+        }
+        return nums[l];
+    }
+public static void main(String[] args) {
+
+        Solution obj = new Solution();
+
+        int[] nums1 = {2,2,2,0,1};
+        int[] nums2 = {1,1,1,0,1};
+        int[] nums3 = {10,1,10,10,10};
+
+        System.out.println("Minimum = " + obj.findMin(nums1));
+        System.out.println("Minimum = " + obj.findMin(nums2));
+        System.out.println("Minimum = " + obj.findMin(nums3));
+    }
+}
