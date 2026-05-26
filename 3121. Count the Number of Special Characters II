@@ -1,0 +1,40 @@
+import java.util.*;
+class Solution {
+    public int numberOfSpecialChars(String word) {
+        int[] firstUpper = new int[26];
+        int[] lastLower = new int[26];
+        for(int i=0;i<26;i++){
+            firstUpper[i]=-1;
+            lastLower[i]=-1;
+        }
+        for(int i=0;i<word.length();i++){
+             char ch = word.charAt(i);
+             if(Character.isLowerCase(ch)){
+                lastLower[ch-'a']=i;
+             }else{
+                if(firstUpper[ch-'A']==-1){
+                    firstUpper[ch-'A']=i;
+                }
+             }
+        }
+        int count=0;
+        for(int i=0;i<26;i++){
+            if(firstUpper[i]!=-1 && lastLower[i]!=-1 && (lastLower[i]<firstUpper[i])){
+                count++;
+            }
+        }
+        return count;
+    }
+public static void main(String[] args) {
+
+        Solution obj = new Solution();
+
+        String word1 = "aaAbcBC";
+        String word2 = "abc";
+        String word3 = "AbBCab";
+
+        System.out.println(obj.numberOfSpecialChars(word1));
+        System.out.println(obj.numberOfSpecialChars(word2));
+        System.out.println(obj.numberOfSpecialChars(word3));
+    }
+}
